@@ -10,6 +10,14 @@ function result = unitVector(n)
     result(1, 1) = 1;
 end
 
+function res = checkSign(x)
+    if x == 0
+        res = 1
+    else
+        res = sign(x)
+    end
+end
+
 function [Q, R] = householder(A)
     [m, n] = size(A);
     Q = eye(m);
@@ -17,7 +25,7 @@ function [Q, R] = householder(A)
 
     for i = 1:n
         x = R(i:m, i);
-        v = x + sign(x(1, 1)) * norm(x) * unitVector(m + 1 - i);
+        v = x + checkSign(x(1, 1)) * norm(x) * unitVector(m + 1 - i);
         H = eye(m);
         H(i:m, i:m) = H(i:m, i:m) - (2 * v * v') / (v' * v);
         Q = Q * H;
