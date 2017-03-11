@@ -58,8 +58,30 @@ function [Q, R] = givens(A)
     end
 end
 
-[Q, R] = householder(A)
-Q * R % sama lho
+[Q, R] = householder(A);
+Q * R; % sama lho
 
-[Q, R] = givens(A)
-Q * R % sama lho (1)
+[Q, R] = givens(A);
+Q * R; % sama lho (1)
+
+function x = solveWithHouseholder(A, b)
+    [m, n] = size(A);
+    [Q, R] = householder([A b]);
+    c = R(1:n, n + 1);
+    R = R(1:n, 1:n);
+    x = inv(R) * c;
+end
+
+solveWithHouseholder([3 -2; 0 3; 4 4], [3; 5; 4])
+
+function x = solveWithGivens(A, b)
+    [m, n] = size(A);
+    [Q, R] = givens([A b]);
+    c = R(1:n, n + 1);
+    R = R(1:n, 1:n);
+    x = inv(R) * c;
+end
+
+solveWithGivens([3 -2; 0 3; 4 4], [3; 5; 4])
+
+% AJAIB!!!
