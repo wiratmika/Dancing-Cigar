@@ -23,7 +23,7 @@ function [Q, R] = householder(A)
     Q = eye(m);
     R = A;
 
-    for i = 1:n - 1
+    for i = 1:n
         x = R(i:m, i);
         v = x + checkSign(x(1, 1)) * norm(x) * unitVector(m + 1 - i);
         H = eye(m);
